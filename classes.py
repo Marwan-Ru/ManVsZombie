@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import pygame
 from constantes import *
 from pygame.locals import *
