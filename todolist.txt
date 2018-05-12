@@ -1,5 +1,5 @@
 Todolist:
-- Gérer les plateformes correctement afin que le zombie z2 ne puisse pas voler
+- Gérer les plateformes correctement afin que le zombie z2 ne puisse pas voler FAIT
 - Faire disparaitre les bullet lorsquelles touchent les zombies
 - Trouver un autre moyen de gérer les sauts parceque la c'est gheto de ouf
 - Trouver des trucs a faire

@@ -177,7 +177,7 @@ while continuer == 1:
         #tout ce aui doit etre répété constament afin d'afficher le niveau et l'ensemble
         perso.collide(perso.List_collide)
         if z1.collide(list_bullet) == True:
-             z1.disapear()
+            z1.disapear()
         if z2.collide(list_bullet) == True:
              z2.disapear()
         fenetre.blit(perso.img,(perso.x, perso.y))

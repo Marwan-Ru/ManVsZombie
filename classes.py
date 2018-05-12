@@ -249,10 +249,13 @@ class Bullet():
         self.y = perso.y + 38 #Position du cannon du fusil du soldat en fonction de sa position
         self.img = img_bullet
         self.rect = Rect((self.x, self.y), (10,5))
+        self.list = perso.List_collide
 
     def moove(self):
-        if self.direction == "droite":
+        self.rect = Rect((self.x, self.y), (10,5))
+        if self.rect.collidelist(self.list) != -1:
+            self.y == 1000
+        elif self.direction == "droite":
             self.x += 5
         else:
             self.x -= 5
-        self.rect = Rect((self.x, self.y), (10,5))
