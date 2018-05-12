@@ -14,8 +14,8 @@ class Niveau():
 
     def create(self, perso,z1, z2):
         """Cette méthode permet de raffraichir le niveau cylcliquement et permet d'éviter ainsi les répétition dans le code de ManVsZombie"""
-        z1.moove(perso.x)
-        z2.moove(perso.x)
+        z1.moove(perso)
+        z2.moove(perso)
         self.fen.blit(self.fond, (0, 0))
         self.fen.blit(self.fond, (1280, 0))
         self.fen.blit(self.sol, (0, hauteur_ecran-136))
@@ -156,7 +156,7 @@ class Perso():
         else: #Sinon cela veut dire qu'aucune collision n'a eu lieu
             return False
 
-    def death():
+    def death(self):
         """Méthode qui gère la mort du joueur"""
         return 0
 
@@ -179,7 +179,7 @@ class Zombie():
         self.MZG =[img_mzg1, img_mzg2, img_mzg3]
         self.img =  img_zd1  #Image utilisée actuellement
         self.rect = Rect((self.x, self.y), (100,137))
-
+        self.p = 0
 
     def user_near(self, user_x):
         """Retourne un booléen qui dépend de la distance entre le joueur et le zombie"""
@@ -192,25 +192,28 @@ class Zombie():
         else :
             return False
 
-    def moove(self, user_x):
+    def moove(self, perso):
         """Gère les mouvements du zombie selon le booléen retourné par user_near()"""
-        if self.user_near(user_x) == True:
-            self.i = 0
-
-            if user_x > self.x: # Si l'utilisateur est plus loin sur l'axe des abscisse que le l'objet zombie
-                self.x += 2
-            else:
-                self.x -= 2
-
-        else:
-             self.i += 1
-             if self.i <= 200:
-                self.x += 1
-             elif self.i <= 400 and self.i > 200:
-                self.x -= 1
-             else:
+        if self.y == 372 :
+            if self.user_near(perso.x) == True and self.y == perso.y:
                 self.i = 0
 
+                if perso.x > self.x: # Si l'utilisateur est plus loin sur l'axe des abscisse que le l'objet zombie
+                    self.x += 2
+                else:
+                    self.x -= 2
+
+            else:
+                self.i += 1
+                if self.i <= 200:
+                    self.x += 1
+                elif self.i <= 400 and self.i > 200:
+                    self.x -= 1
+                else:
+                    self.i = 0
+        else:
+            self.on_platform(perso)
+    
     def collide(self, list):
         """Vérifie certain paramètre lors d'une collision"""
         self.rect = Rect((self.x, self.y), (100,137))
@@ -220,6 +223,16 @@ class Zombie():
 
     def disapear(self):
         self.y = 5000
+    
+    def on_platform(self, perso):
+        if self.x > 799:
+            self.p = 0
+        if self.x < 501:
+            self.p = 1
+        if self.x > 500 and self.p == 0: #Si l'on n'a pas attein le cot� gauche de la plateforme et que le c�t� droit a �t� attein pr�c�dement
+            self.x -= 1
+        if self.x < 800 and self.p == 1:
+            self.x += 1
 
 class Bullet():
     """Classe des balles tirée par le soldat elle gère:
