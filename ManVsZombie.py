@@ -54,7 +54,7 @@ while continuer == 1:
                     # On crée tout les objets du niveau 
                     niv = Niveau(fenetre) 
                     z1 = Zombie(fenetre, 800)
-                    z2 = Zombie(fenetre, 900, 245)
+                    z2 = Zombie(fenetre, 900, 235)
                     perso = Perso(fenetre, niv, [z1.rect, pla2, solr, z2.rect], [z1, z2])#On indique en paramètre a notre perso une liste de tout les rects afin de gérer les collisions
                     fenetre.blit(img_cr, (300, 372))
                     niv.create(perso, z1, z2)

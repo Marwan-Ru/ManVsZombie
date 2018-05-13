@@ -34,14 +34,14 @@ class Perso():
         self.fen = Fenetre
         self.niv = niveau
         self.x = 0
-        self.y = 372  #Niveau du sol
+        self.y = 349  #Niveau du sol
         #Nous créons ici des listes afin d'uiliser plus facilement les sprite (for)
         self.D = [img_d1, img_d2, img_d3, img_d4, img_d5, img_d6]
         self.G = [img_g1, img_g2, img_g3, img_g4, img_g5, img_g6]
         self.SD = [img_sd1, img_sd2, img_sd3, img_sd4, img_sd5]
         self.SG = [img_sg1, img_sg2, img_sg3, img_sg4, img_sg5]
         self.img =  img_d1  #Image utilisée actuellement
-        self.rect = Rect((self.x, self.y), (100,137))
+        self.rect = Rect((self.x, self.y), (100,160))
         self.List_collide = list
         self.ennemis = ennemi_list
 
@@ -149,7 +149,7 @@ class Perso():
 
     def collide(self, list):
         """Permet de savoir quelle type de collision a eu lieu si jamais collision il y à"""
-        self.rect = Rect((self.x, self.y), (100,137))
+        self.rect = Rect((self.x, self.y), (100,160))
         if self.rect.collidelist(list) == 1 or self.rect.collidelist(list) == 2: #Si la collision a lieu avec une plateforme
             return True
         elif self.rect.collidelist(list) != -1: #si la collision n'a pa eu lieu avec une plateforme alors si la collision a eu lieu avec autre chose (Ne peut etre qu'un zombie)
@@ -166,7 +166,7 @@ class Zombie():
         - Les déplacement du zombie qui sont différents selon sa proximité avec le joueur
         - Les collisions du zombie avec son environnement
         """
-    def __init__(self, Fenetre, x, y = 372):
+    def __init__(self, Fenetre, x, y = 367):
         """Constructeur de notre classe Zombie on y défini toute les variables
         Communes a tout les objets Zombie"""
         self.i = 0
@@ -179,7 +179,7 @@ class Zombie():
         self.MZD =[img_mzd1, img_mzd2, img_mzd3]
         self.MZG =[img_mzg1, img_mzg2, img_mzg3]
         self.img =  img_zd1  #Image utilisée actuellement
-        self.rect = Rect((self.x, self.y), (100,137))
+        self.rect = Rect((self.x, self.y), (74,150))
         self.p = 0
 
     def user_near(self, user_x):
@@ -195,8 +195,8 @@ class Zombie():
 
     def moove(self, perso):
         """Gère les mouvements du zombie selon le booléen retourné par user_near()"""
-        if self.y == 372 :
-            if self.user_near(perso.x) == True and self.y == perso.y:
+        if self.y == 367 :
+            if self.user_near(perso.x) == True:
                 self.i = 0
 
                 if perso.x > self.x: # Si l'utilisateur est plus loin sur l'axe des abscisse que le l'objet zombie
