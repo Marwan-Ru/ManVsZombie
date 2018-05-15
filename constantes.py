@@ -78,6 +78,7 @@ img_bullet = pygame.image.load("Img/F/bullet.png").convert_alpha()
 """Sprites de fond et de plateforme"""
 #Fond du jeu et sol
 img_accueil = pygame.image.load("Img/F/accueil.png").convert_alpha()
+img_mort = pygame.image.load("Img/F/mort.jpg").convert()
 img_fond = pygame.image.load("Img/F/fond.png").convert_alpha()
 img_sol = pygame.image.load("Img/F/sol.jpg").convert()
 

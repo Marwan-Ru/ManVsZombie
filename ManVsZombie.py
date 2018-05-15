@@ -55,7 +55,7 @@ while continuer == 1:
                     niv = Niveau(fenetre) 
                     z1 = Zombie(fenetre, 800)
                     z2 = Zombie(fenetre, 900, 235)
-                    perso = Perso(fenetre, niv, [z1.rect, pla2, solr, z2.rect], [z1, z2])#On indique en paramètre a notre perso une liste de tout les rects afin de gérer les collisions
+                    perso = Perso(fenetre, niv, [pla2, solr,z1.rect ,z2.rect], [z1, z2])#On indique en paramètre a notre perso une liste de tout les rects afin de gérer les collisions
                     fenetre.blit(img_cr, (300, 372))
                     niv.create(perso, z1, z2)
                     pygame.display.flip()
@@ -66,6 +66,10 @@ while continuer == 1:
                 	jeu = 0
 
     while jeu == 1: #Boucle de jeu
+        if perso.collide == "dead":
+            jeu = 0
+            menu = 1
+            img_acceuil = img_mort
         pygame.time.Clock().tick(60) #On limite la boucle a 60 répétition par secondes
         z1.moove(perso)
         z2.moove(perso)
@@ -85,7 +89,6 @@ while continuer == 1:
                 if event.key == K_s:
                     direction = "immobile"
                 if event.key == K_w and direction == "droite": #Idem
-                    print("DZAGHYDIAZGGZAYIDGAZI")
                     perso.jump("droite")
                 if event.key == K_w and direction == "gauche": #Idem
                     perso.jump("gauche")
@@ -135,8 +138,6 @@ while continuer == 1:
                     i = 0
                     list_bullet.clear()
                     del b0, b1, b2, b3, b4
-                print("self.x = " + str(perso.x) + " self.y = " + str(perso.y))#Ce print est présent uniquement afin de vérifier la position du personnage dans la console
-                print(str(perso.rect) + " précedent") #Et celui la pour vérifier que le rect est bien sur le personnage
         """Ici on actualise tout les éléments présents a l'écran pour chaque Frame"""
         niv.create(perso, z1, z2)
         #Les encapsulation sont ici afin d'éviter les erreurs dues a la non existence des balles si elles n'ont pas encore étées tirées
@@ -146,35 +147,35 @@ while continuer == 1:
             fenetre.blit(b0.img, (b0.x, b0.y))
             list_bullet.append(b0)
         except:
-            print("Pas de b0")
+            a = 1
         try :
             list_bullet.remove(b1)
             b1.moove()
             fenetre.blit(b1.img, (b1.x, b1.y))
             list_bullet.append(b1)
         except:
-            print("Pas de b1")
+            a = 1
         try :
             list_bullet.remove(b2)
             b2.moove()
             fenetre.blit(b2.img, (b2.x, b2.y))
             list_bullet.append(b2)
         except:
-            print("Pas de b2")
+            a = 1
         try :
             list_bullet.remove(b3)
             b3.moove()
             fenetre.blit(b3.img, (b3.x, b3.y))
             list_bullet.append(b3)
         except:
-            print("Pas de b3")
+            a = 1
         try :
             list_bullet.remove(b4)
             b4.moove()
             fenetre.blit(b4.img, (b4.x, b4.y))
             list_bullet.append(b4)
         except:
-            print("Pas de b4")
+            a = 1
         #tout ce aui doit etre répété constament afin d'afficher le niveau et l'ensemble
         perso.collide(perso.List_collide)
         if z1.collide(list_bullet) == True:

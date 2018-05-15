@@ -58,24 +58,20 @@ class Perso():
                 pygame.time.Clock().tick(30)#On limite les fps a 30
                 self.y -= 10
                 self.x += 8
-                print(self.x) #Ceci sert uniquement au debugage
-                print(self.y) #Idem
-                self.niv.create(self, self.ennemis[0], self.ennemis[1]) #On affiche le niveau
-                self.fen.blit(self.img,(self.x, self.y))#On affiche notre personnage par dessus
-                pygame.display.flip()#On raffraichi l'écran
-                k -= 0.3 #artefact inutile
-            """Le reste est similaire et les mêmes commentaires sont applicables seules les différences seront commentées"""
-            while self.collide(self.List_collide) == False: #Tant qu'on ne touche pas le sol ou une plateforme
-                pygame.time.Clock().tick(30)
-                self.collide(self.List_collide)
-                self.y += 10 #L'axe de graduation est inversé en pygame
-                self.x += 8
-                print(self.x)
-                print(self.y)
                 self.niv.create(self, self.ennemis[0], self.ennemis[1])
                 self.fen.blit(self.img,(self.x, self.y))
                 pygame.display.flip()
                 k += 0.3
+
+            while self.collide(self.List_collide) == False:
+                pygame.time.Clock().tick(30)
+                self.collide(self.List_collide)#On lance la méthode qui permet de gérer les collisions
+                self.y += 10
+                self.x += 8
+                self.niv.create(self, self.ennemis[0], self.ennemis[1])
+                self.fen.blit(self.img,(self.x, self.y))
+                pygame.display.flip()
+                
 
         if direction == "verticale":
             while self.y > y:
@@ -83,8 +79,6 @@ class Perso():
                 self.collide(self.List_collide)
                 self.y -= 10
                 #Ici on effectue un saut a la verticale le x n'est donc pas modifié
-                print(self.x)
-                print(self.y)
                 self.niv.create(self, self.ennemis[0], self.ennemis[1])
                 self.fen.blit(self.img,(self.x, self.y))
                 pygame.display.flip()
@@ -93,8 +87,6 @@ class Perso():
                 pygame.time.Clock().tick(30)
                 self.collide(self.List_collide)
                 self.y += 10
-                print(self.x)
-                print(self.y)
                 self.niv.create(self, self.ennemis[0], self.ennemis[1])
                 self.fen.blit(self.img,(self.x, self.y))
                 pygame.display.flip()
@@ -105,8 +97,6 @@ class Perso():
                 pygame.time.Clock().tick(30)
                 self.y -= 10
                 self.x -= 8
-                print(self.x)
-                print(self.y)
                 self.niv.create(self, self.ennemis[0], self.ennemis[1])
                 self.fen.blit(self.img,(self.x, self.y))
                 pygame.display.flip()
@@ -116,8 +106,6 @@ class Perso():
                 self.collide(self.List_collide)
                 self.y += 10
                 self.x -= 8
-                print(self.x)
-                print(self.y)
                 self.niv.create(self, self.ennemis[0], self.ennemis[1])
                 self.fen.blit(self.img,(self.x, self.y))
                 pygame.display.flip()
@@ -154,16 +142,16 @@ class Perso():
     def collide(self, list):
         """Permet de savoir quelle type de collision a eu lieu si jamais collision il y a"""
         self.rect = Rect((self.x, self.y), (100,160))
-        if self.rect.collidelist(list) == 1 or self.rect.collidelist(list) == 2: #Si la collision a lieu avec une plateforme
+        if self.rect.collidelist(list) >= 2: #si la collision a lieu avec un zombie
+            print("dead")
+            return "dead"
+        if self.rect.collidelist(list) <= 1 and self.rect.collidelist(list) != -1:#Si la collision a lieu avec une plateforme
+            print("platforme")
             return True
-        elif self.rect.collidelist(list) != -1: #si la collision n'a pa eu lieu avec une plateforme alors si la collision a eu lieu avec autre chose (Ne peut etre qu'un zombie)
-            self.death()#On appelle la méthode qui gère la mort
         else: #Sinon cela veut dire qu'aucune collision n'a eu lieu
             return False
 
-    def death(self):
-        """Méthode qui gère la mort du joueur"""
-        return 0
+
 
 class Zombie():
     """Classe créée pour les zombie elle gère :
