@@ -98,5 +98,6 @@ hauteur_sprite = 140
 largeur_ecran = 1280
 hauteur_ecran = 645
 largeur_niveau = 2560
+hauteur_pla = 360 
 resolution = (largeur_ecran, hauteur_ecran)
 titre_fenetre = "ManVsZombie"

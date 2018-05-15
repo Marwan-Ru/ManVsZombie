@@ -30,7 +30,7 @@ pygame.key.set_repeat(50, 110)
 # Variables et rect nécessairenments définie ici
 list_bullet = []
 solr = Rect((-100, hauteur_ecran - 136), (10000,150))
-pla2 = Rect((500, 380), (458, 60))
+pla2 = Rect((500, hauteur_pla), (458, 60))
 direction = "immobile"
 
 while continuer == 1:
@@ -47,16 +47,20 @@ while continuer == 1:
                 continuer = 0
                 pygame.display.quit()
             if event.type == KEYDOWN:
-                if event.key == K_F1: #Si l'utilisateur choisi de lancer le jeu
+                if event.key == K_F1: #Si l'utilisateur choisi de lancer le je
                     menu = 0
                     jeu = 1
+                    zk = 0
                     # On crée tout les objets du niveau 
-                    niv = Niveau(fenetre) 
                     z1 = Zombie(fenetre, 800)
-                    z2 = Zombie(fenetre, 900, 235)
-                    perso = Perso(fenetre, niv, [pla2, solr,z1.rect ,z2.rect], [z1, z2])#On indique en paramètre a notre perso une liste de tout les rects afin de gérer les collisions
+                    z2 = Zombie(fenetre, 900, hauteur_pla-150)
+                    z3 = Zombie(fenetre, 900, 1000)
+                    z4 = Zombie(fenetre, 900, 1000)
+                    z5 = Zombie(fenetre, 900, 1000)
+                    niv = Niveau(fenetre) 
+                    perso = Perso(fenetre, niv, [pla2, solr,z1.rect ,z2.rect], [z1, z2, z3, z4, z5])#On indique en paramètre a notre perso une liste de tout les rects afin de gérer les collisions
                     fenetre.blit(img_cr, (300, 372))
-                    niv.create(perso, z1, z2)
+                    niv.create(perso, z1, z2, z3, z4, z5)
                     pygame.display.flip()
 
                 if event.key == K_F2:
@@ -138,7 +142,9 @@ while continuer == 1:
                     list_bullet.clear()
                     del b0, b1, b2, b3, b4
         """Ici on actualise tout les éléments présents a l'écran pour chaque Frame"""
-        niv.create(perso, z1, z2)
+        niv.create(perso, z1, z2, z3, z4, z5)
+        #On regarde si le joueur a tué les deux premiers zombies et si il a tué tout les autres zombies
+        nivstate(zk, z1, z2, z3, z4, z5)
         #Les encapsulation sont ici afin d'éviter les erreurs dues a la non existence des balles si elles n'ont pas encore étées tirées
         try :
             list_bullet.remove(b0)
@@ -179,9 +185,24 @@ while continuer == 1:
         perso.collide(perso.List_collide)
         if z1.collide(list_bullet) == True:
             z1.disapear()
+            zk += 1
         if z2.collide(list_bullet) == True:
-             z2.disapear()
+            z2.disapear()
+            zk += 1
+        if z3.collide(list_bullet) == True:
+            z3.disapear()
+            zk += 1
+        if z4.collide(list_bullet) == True:
+            z4.disapear()
+            zk += 1
+        if z5.collide(list_bullet) == True:
+            z5.disapear()
+            zk += 1
         fenetre.blit(perso.img,(perso.x, perso.y))
         fenetre.blit(z1.img, (z1.x, z1.y) )
         fenetre.blit(z2.img, (z2.x, z2.y) )
+        fenetre.blit(z3.img, (z3.x, z3.y) )
+        fenetre.blit(z4.img, (z4.x, z4.y) )
+        fenetre.blit(z4.img, (z4.x, z4.y) )
+        fenetre.blit(z5.img, (z5.x, z5.y) )
         pygame.display.flip()

@@ -1,5 +1,7 @@
 Todolist:
 - Gérer les plateformes correctement afin que le zombie z2 ne puisse pas voler FAIT
+- Faire mourir le joueur lorsqu'il touche un zombie FAIT
+- Montrer les touches dans l'acceuil
+- Faire une suite aux deux zombies --> Apres avoir tué d'autres zombies apparaissent (Pour ce faire laisser des zombies dans un coin de la map et les déplacer lorsqu'ils doivent apparaitre)
 - Faire disparaitre les bullet lorsquelles touchent les zombies
 - Trouver un autre moyen de gérer les sauts parceque la c'est gheto de ouf
-- Trouver des trucs a faire

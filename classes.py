@@ -11,7 +11,7 @@ class Niveau():
         # :parametre fenetre [Fenetre ou le niveau s'affiche]
         self.fen = Fenetre
 
-    def create(self, perso,z1, z2):
+    def create(self, perso, z1, z2, z3, z4, z5):
         """Cette méthode permet de raffraichir le niveau cylcliquement et permet d'éviter ainsi les répétition dans le code de ManVsZombie"""
         z1.moove(perso)
         z2.moove(perso)
@@ -19,9 +19,12 @@ class Niveau():
         self.fen.blit(img_fond, (1280, 0))
         self.fen.blit(img_sol, (0, hauteur_ecran-136))
         self.fen.blit(img_sol, (801, hauteur_ecran-136))
-        self.fen.blit(img_pla2, (500, 380))
+        self.fen.blit(img_pla2, (500, hauteur_pla))
         self.fen.blit(z1.img, (z1.x, z1.y))
         self.fen.blit(z2.img, (z2.x, z2.y))
+        self.fen.blit(z3.img, (z3.x, z3.y))
+        self.fen.blit(z4.img, (z4.x, z4.y))
+        self.fen.blit(z5.img, (z5.x, z5.y))
 
 
 class Perso():
@@ -40,8 +43,6 @@ class Perso():
         #Nous créons ici des listes afin d'uiliser plus facilement les sprite (for)
         self.D = [img_d1, img_d2, img_d3, img_d4, img_d5, img_d6]
         self.G = [img_g1, img_g2, img_g3, img_g4, img_g5, img_g6]
-        self.SD = [img_sd1, img_sd2, img_sd3, img_sd4, img_sd5]
-        self.SG = [img_sg1, img_sg2, img_sg3, img_sg4, img_sg5]
         self.img =  img_d1  #Image utilisée actuellement
         self.rect = Rect((self.x, self.y), (100,160))
         self.List_collide = list
@@ -58,7 +59,7 @@ class Perso():
                 pygame.time.Clock().tick(30)#On limite les fps a 30
                 self.y -= 10
                 self.x += 8
-                self.niv.create(self, self.ennemis[0], self.ennemis[1])
+                self.niv.create(self, self.ennemis[0], self.ennemis[1], self.ennemis[2], self.ennemis[3], self.ennemis[4])
                 self.fen.blit(self.img,(self.x, self.y))
                 pygame.display.flip()
                 k += 0.3
@@ -68,7 +69,7 @@ class Perso():
                 self.collide(self.List_collide)#On lance la méthode qui permet de gérer les collisions
                 self.y += 10
                 self.x += 8
-                self.niv.create(self, self.ennemis[0], self.ennemis[1])
+                self.niv.create(self, self.ennemis[0], self.ennemis[1], self.ennemis[2], self.ennemis[3], self.ennemis[4])
                 self.fen.blit(self.img,(self.x, self.y))
                 pygame.display.flip()
                 
@@ -79,7 +80,7 @@ class Perso():
                 self.collide(self.List_collide)
                 self.y -= 10
                 #Ici on effectue un saut a la verticale le x n'est donc pas modifié
-                self.niv.create(self, self.ennemis[0], self.ennemis[1])
+                self.niv.create(self, self.ennemis[0], self.ennemis[1], self.ennemis[2], self.ennemis[3], self.ennemis[4])
                 self.fen.blit(self.img,(self.x, self.y))
                 pygame.display.flip()
 
@@ -87,7 +88,7 @@ class Perso():
                 pygame.time.Clock().tick(30)
                 self.collide(self.List_collide)
                 self.y += 10
-                self.niv.create(self, self.ennemis[0], self.ennemis[1])
+                self.niv.create(self, self.ennemis[0], self.ennemis[1], self.ennemis[2], self.ennemis[3], self.ennemis[4])
                 self.fen.blit(self.img,(self.x, self.y))
                 pygame.display.flip()
 
@@ -97,7 +98,7 @@ class Perso():
                 pygame.time.Clock().tick(30)
                 self.y -= 10
                 self.x -= 8
-                self.niv.create(self, self.ennemis[0], self.ennemis[1])
+                self.niv.create(self, self.ennemis[0], self.ennemis[1], self.ennemis[2], self.ennemis[3], self.ennemis[4])
                 self.fen.blit(self.img,(self.x, self.y))
                 pygame.display.flip()
                 k -= 0.3
@@ -106,7 +107,7 @@ class Perso():
                 self.collide(self.List_collide)
                 self.y += 10
                 self.x -= 8
-                self.niv.create(self, self.ennemis[0], self.ennemis[1])
+                self.niv.create(self, self.ennemis[0], self.ennemis[1], self.ennemis[2], self.ennemis[3], self.ennemis[4])
                 self.fen.blit(self.img,(self.x, self.y))
                 pygame.display.flip()
                 k += 0.3
@@ -254,9 +255,43 @@ class Bullet():
 
     def moove(self):
         self.rect = Rect((self.x, self.y), (10,5))
-        if self.rect.collidelist(self.list) != -1:
-            self.y == 1000
-        elif self.direction == "droite":
+        if self.direction == "droite":
             self.x += 5
         else:
             self.x -= 5
+
+def nivstate(zk, z1, z2, z3, z4, z5):
+    try:
+        print(niv1 + niv2 + niv3)
+    except:
+        niv1 = "lance"
+        niv2 = "lance"
+        niv3 = "lance"
+
+    if zk == 2 and niv1 == "lance":
+        niv1 = "fini"
+        zk = 0
+    if zk == 3 and niv2 == "lance":
+        niv2 == "fini"
+        zk = 0
+    if niv2 == "fini" and niv3 == "lance":
+        niv3 == "fini"
+        zk = 0
+
+    if niv1 == "fini":
+        z1.y, z1.x= 367, 900
+        z2.y, z2.x = 367, 600
+        z3.y, z3.x = hauteur_pla-150, 900
+        niv1 == "Supprime"
+    if niv2 == "fini":
+        z1.y, z1.x= 367, 900
+        z2.y, z2.x = 367, 600
+        z3.y, z3.x = hauteur_pla-150, 900
+        z4.y, z4.x = 367, 100
+        z5.y, z5.x = hauteur_pla-150, 900
+        niv2 == "supprime"
+    if niv3 == "fini":
+        Fin = 1
+        jeu = 0
+        menu = 1
+    
