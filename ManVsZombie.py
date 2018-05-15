@@ -139,7 +139,7 @@ while continuer == 1:
                 print(str(perso.rect) + " précedent") #Et celui la pour vérifier que le rect est bien sur le personnage
         """Ici on actualise tout les éléments présents a l'écran pour chaque Frame"""
         niv.create(perso, z1, z2)
-        #Les encapsulation sont la afin d'éviter les erreurs dues a la non existence des balles si elles n'ont pas encore étées tirées
+        #Les encapsulation sont ici afin d'éviter les erreurs dues a la non existence des balles si elles n'ont pas encore étées tirées
         try :
             list_bullet.remove(b0)
             b0.moove()

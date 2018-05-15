@@ -8,19 +8,17 @@ class Niveau():
     def __init__(self, Fenetre):
         """Constructeur de notre classe Niveau on y dÃ©fini toute les variables
         Communes a tout les objets Niveau"""
+        # :parametre fenetre [Fenetre ou le niveau s'affiche]
         self.fen = Fenetre
-        self.fond = img_fond
-        self.sol = img_sol
-        scrolling_x = 0
 
     def create(self, perso,z1, z2):
         """Cette méthode permet de raffraichir le niveau cylcliquement et permet d'éviter ainsi les répétition dans le code de ManVsZombie"""
         z1.moove(perso)
         z2.moove(perso)
-        self.fen.blit(self.fond, (0, 0))
-        self.fen.blit(self.fond, (1280, 0))
-        self.fen.blit(self.sol, (0, hauteur_ecran-136))
-        self.fen.blit(self.sol, (801, hauteur_ecran-136))
+        self.fen.blit(img_fond, (0, 0))
+        self.fen.blit(img_fond, (1280, 0))
+        self.fen.blit(img_sol, (0, hauteur_ecran-136))
+        self.fen.blit(img_sol, (801, hauteur_ecran-136))
         self.fen.blit(img_pla2, (500, 380))
         self.fen.blit(z1.img, (z1.x, z1.y))
         self.fen.blit(z2.img, (z2.x, z2.y))
@@ -30,6 +28,10 @@ class Perso():
     def __init__(self, Fenetre, niveau, list, ennemi_list):
         """Constructeur de notre classe Perso on y défini toute les variables
         Communes a tout les objets Perso"""
+        # :parametre Fenetre [Fenetre ou le niveau va s'afficher]
+        # :parametre niveau [Objet niveau affili� au perso]
+        # :parametre list [Liste des rects avecs lequels le Perso doit r�agir en collision]
+        # :parametre ennemi_list [Liste des objets consid�r�s comme ennemis]
         self.i = 0
         self.fen = Fenetre
         self.niv = niveau
@@ -46,6 +48,7 @@ class Perso():
         self.ennemis = ennemi_list
 
     def jump(self, direction):
+        # :parametre direction [Direction dans laquelle le personnage se dirige actuellement]
         """Méthode qui gère le saut"""
         k = 10
         y = self.y - 172 #Permet d'adapter la hauteur du saut en fonction du la hauteur ou notre personnage se trouve
@@ -123,6 +126,7 @@ class Perso():
 
     def moove(self, direction):
         """Permet de déplacer le personnage on inclue en parametre la direction afin de n'avoir qu'une seule méthode a appeler pour toutes les directions"""
+        # :parametre direction [Direction dans laquelle doit se diriger le personnage]
         if direction == "droite": #Si le personnage doit se d
             if self.x >= largeur_ecran - 137: #Si le personnage sors de l'écran par la droite (Sa largeur est de 137px)
                 self.x = largeur_ecran - 137
@@ -148,7 +152,7 @@ class Perso():
             self.x -= 20
 
     def collide(self, list):
-        """Permet de savoir quelle type de collision a eu lieu si jamais collision il y à"""
+        """Permet de savoir quelle type de collision a eu lieu si jamais collision il y a"""
         self.rect = Rect((self.x, self.y), (100,160))
         if self.rect.collidelist(list) == 1 or self.rect.collidelist(list) == 2: #Si la collision a lieu avec une plateforme
             return True
@@ -169,6 +173,9 @@ class Zombie():
     def __init__(self, Fenetre, x, y = 367):
         """Constructeur de notre classe Zombie on y défini toute les variables
         Communes a tout les objets Zombie"""
+        # parametre Fenetre [Fenetre a laquelle le zombie est affili�]
+        # parametre x [Position x de d�part]
+        # parametre y [Position y de d�part avec une valeur par d�faut de  367]
         self.i = 0
         self.fen = Fenetre
         self.x = x
@@ -184,6 +191,7 @@ class Zombie():
 
     def user_near(self, user_x):
         """Retourne un booléen qui dépend de la distance entre le joueur et le zombie"""
+        # parametre user_x [Position du perso sur l'axe des abscisse]
         if user_x < self.x and self.x - user_x < 200:
             return True
 
@@ -195,6 +203,7 @@ class Zombie():
 
     def moove(self, perso):
         """Gère les mouvements du zombie selon le booléen retourné par user_near()"""
+        #parametre perso [Objet Perso() repr�sentant le joueur]
         if self.y == 367 :
             if self.user_near(perso.x) == True:
                 self.i = 0
@@ -242,6 +251,8 @@ class Bullet():
         """
     def __init__(self, perso, direction):
         """Constructeur de la classe Bullet qui définis le s variables communes a tout les objets bullet"""
+        # :parametre perso [Objet perso repr�sentant le joueur]
+        # :parametre direction [Direction initiale de la balle (ne peut pes changer)]
         self.direction = direction
         if direction == "droite": #Si la balle est tirée vers la droite
             self.x = perso.x + 100 #Elle partira de la droite du personnage (La largeur du perso est de 100px)
