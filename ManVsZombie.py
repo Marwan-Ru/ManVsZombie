@@ -50,7 +50,6 @@ while continuer == 1:
                 if event.key == K_F1: #Si l'utilisateur choisi de lancer le jeu
                     menu = 0
                     jeu = 1
-                    print("JEU")
                     # On crée tout les objets du niveau 
                     niv = Niveau(fenetre) 
                     z1 = Zombie(fenetre, 800)
@@ -66,7 +65,7 @@ while continuer == 1:
                 	jeu = 0
 
     while jeu == 1: #Boucle de jeu
-        if perso.collide == "dead":
+        if perso.isdead([z1.rect, z2.rect]) == True:
             jeu = 0
             menu = 1
             img_acceuil = img_mort

@@ -142,16 +142,17 @@ class Perso():
     def collide(self, list):
         """Permet de savoir quelle type de collision a eu lieu si jamais collision il y a"""
         self.rect = Rect((self.x, self.y), (100,160))
-        if self.rect.collidelist(list) >= 2: #si la collision a lieu avec un zombie
-            print("dead")
-            return "dead"
         if self.rect.collidelist(list) <= 1 and self.rect.collidelist(list) != -1:#Si la collision a lieu avec une plateforme
-            print("platforme")
             return True
         else: #Sinon cela veut dire qu'aucune collision n'a eu lieu
             return False
 
-
+    def isdead(self, list):
+        self.rect = Rect((self.x, self.y), (100,160))
+        if self.rect.collidelist(list) != -1: #si la collision a lieu avec un zombie
+            return True
+        else:
+            return False
 
 class Zombie():
     """Classe créée pour les zombie elle gère :
