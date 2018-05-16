@@ -148,8 +148,8 @@ while continuer == 1:
         """Ici on actualise tout les éléments présents a l'écran pour chaque Frame"""
         niv.create(perso, z1, z2, z3, z4, z5)
         #On regarde si le joueur a tué les deux premiers zombies et si il a tué tout les autres zombies
-        nivstate(zk, z1, z2, z3, z4, z5)
-        if nivstate(zk, z1, z2, z3, z4, z5) == True:
+        nivstate(zk, z1, z2, z3, z4, z5, perso)
+        if nivstate(zk, z1, z2, z3, z4, z5, perso) == True:
             jeu = 0
             fin = 1
         

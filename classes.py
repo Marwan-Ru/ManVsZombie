@@ -260,13 +260,15 @@ class Bullet():
         else:
             self.x -= 5
 
-def nivstate(zk, z1, z2, z3, z4, z5):
+def nivstate(zk, z1, z2, z3, z4, z5, perso):
 
     if zk == 2:
+        perso.x, perso.y = 0, 349
         z1.y, z1.x= 367, 900
         z2.y, z2.x = 367, 300
         z3.y, z3.x = hauteur_pla-150, 900
     if zk == 5:
+        perso.x, perso.y = 0, 349
         z1.y, z1.x= 367, 900
         z2.y, z2.x = 367, 300
         z3.y, z3.x = hauteur_pla-150, 900
