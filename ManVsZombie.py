@@ -6,7 +6,7 @@ from classes import *
 
 pygame.init()
 
-#Ouverture de la fenÃ¨tre Pygame
+#Ouverture de la fenetre Pygame
 fenetre = pygame.display.set_mode(resolution)
 
 #Icone
@@ -76,6 +76,9 @@ while continuer == 1:
         pygame.time.Clock().tick(60) #On limite la boucle a 60 répétition par secondes
         z1.moove(perso)
         z2.moove(perso)
+        z3.moove(perso)
+        z4.moove(perso)
+        z5.moove(perso)
         for event in pygame.event.get():
             if event.type == QUIT: #Si on appuie sur la croix on ferme la fenètre et le programme
                 jeu = 0

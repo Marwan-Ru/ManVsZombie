@@ -280,15 +280,15 @@ def nivstate(zk, z1, z2, z3, z4, z5):
 
     if niv1 == "fini":
         z1.y, z1.x= 367, 900
-        z2.y, z2.x = 367, 600
+        z2.y, z2.x = 367, 300
         z3.y, z3.x = hauteur_pla-150, 900
         niv1 == "Supprime"
     if niv2 == "fini":
         z1.y, z1.x= 367, 900
-        z2.y, z2.x = 367, 600
+        z2.y, z2.x = 367, 300
         z3.y, z3.x = hauteur_pla-150, 900
         z4.y, z4.x = 367, 100
-        z5.y, z5.x = hauteur_pla-150, 900
+        z5.y, z5.x = hauteur_pla-150, 800
         niv2 == "supprime"
     if niv3 == "fini":
         Fin = 1
