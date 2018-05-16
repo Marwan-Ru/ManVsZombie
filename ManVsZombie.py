@@ -19,6 +19,7 @@ pygame.display.set_caption(titre_fenetre)
 continuer = 1
 menu = 1
 jeu = 1
+fin = 0 
 i = 0
 
 #Horloge qui permet de mesurer le temps
@@ -148,6 +149,10 @@ while continuer == 1:
         niv.create(perso, z1, z2, z3, z4, z5)
         #On regarde si le joueur a tué les deux premiers zombies et si il a tué tout les autres zombies
         nivstate(zk, z1, z2, z3, z4, z5)
+        if nivstate(zk, z1, z2, z3, z4, z5) == True:
+            jeu = 0
+            fin = 1
+        
         #Les encapsulation sont ici afin d'éviter les erreurs dues a la non existence des balles si elles n'ont pas encore étées tirées
         try :
             list_bullet.remove(b0)
@@ -209,3 +214,11 @@ while continuer == 1:
         fenetre.blit(z4.img, (z4.x, z4.y) )
         fenetre.blit(z5.img, (z5.x, z5.y) )
         pygame.display.flip()
+
+    while fin == 1:
+        fenetre.blit(img_fin, (0,0))
+        pygame.display.flip()
+        for event in pygame.event.get():
+            if event.type == KEYDOWN and event.key == K_F1:
+                fin = 0
+                continuer = 0

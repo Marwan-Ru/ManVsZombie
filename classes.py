@@ -261,37 +261,16 @@ class Bullet():
             self.x -= 5
 
 def nivstate(zk, z1, z2, z3, z4, z5):
-    try:
-        print(niv1 + niv2 + niv3)
-    except:
-        niv1 = "lance"
-        niv2 = "lance"
-        niv3 = "lance"
 
-    if zk == 2 and niv1 == "lance":
-        niv1 = "fini"
-        zk = 0
-    if zk == 3 and niv2 == "lance":
-        niv2 == "fini"
-        zk = 0
-    if niv2 == "fini" and niv3 == "lance":
-        niv3 == "fini"
-        zk = 0
-
-    if niv1 == "fini":
+    if zk == 2:
         z1.y, z1.x= 367, 900
         z2.y, z2.x = 367, 300
         z3.y, z3.x = hauteur_pla-150, 900
-        niv1 == "Supprime"
-    if niv2 == "fini":
+    if zk == 5:
         z1.y, z1.x= 367, 900
         z2.y, z2.x = 367, 300
         z3.y, z3.x = hauteur_pla-150, 900
         z4.y, z4.x = 367, 100
         z5.y, z5.x = hauteur_pla-150, 800
-        niv2 == "supprime"
-    if niv3 == "fini":
-        Fin = 1
-        jeu = 0
-        menu = 1
-    
+    if zk == 10:
+        return True
